@@ -1,0 +1,19 @@
+
+.thmy{
+text-align:center;
+}
+
+input.ng-invalid {
+border: 1px solid red;
+background: #fff0f0;
+}
+input.ng-valid {
+border: 1px solid green;
+background: #f0fff0;
+}
+
+  .done-true {
+      text-decoration: line-through;
+      color: grey;
+  }
+

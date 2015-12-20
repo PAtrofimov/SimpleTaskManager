@@ -1,0 +1,30 @@
+<h3>Hello, {{username}} !&nbsp;&nbsp;<button class="btn btn-primary btn-xs text-right" ng-click="profile()"> Profile </button> &nbsp;&nbsp;<button class="btn btn-info btn-xs text-right" ng-click="exit()"><span class="glyphicon glyphicon-log-out"></span> Exit</button></h3>
+<div align="right">
+    Search: &nbsp;&nbsp;<input type = "search" autofocus size = "30" ng-model="search" placeholder="Please type..."/>
+</div>
+<table class="table table-hover table-bordered table-striped table-condensed table-responsive">
+<thead>
+<tr>
+<th><a href="" ng-click="column='done'; reverse=!reverse">Done</a></th>
+<th><a href="" ng-click="column='name'; reverse=!reverse">Task</a></th>
+<th><a href="" ng-click="column='start'; reverse=!reverse">Start Date</a></th>
+<th><a href="" ng-click="column='finish'; reverse=!reverse">Finish Date</a></th>
+<th><a href="" ng-click="column='priority'; reverse=!reverse">Priority</a></th>
+<th><a href="" ng-click="column='description'; reverse=!reverse">Description</a></th>
+<th></th></tr>
+</thead>
+<tbody>
+<tr ab-task ng-repeat="Task in $FilteredTasks =(Tasks | filter:search | orderBy : column:reverse | split:start:count) track by Task.id"
+    id="{{Task.id}}" name="{{Task.name}}" made="{{Task.done | checkmark}}" done="{{Task.done}}"
+	start="{{Task.start | date:'longDate'}}" finish="{{Task.finish| date:'longDate'}}" priority="{{Task.priority}}" description="{{Task.description}}" class="{{showcolor(Task.priority)}}">
+</tr>
+</tbody>
+</table>
+<button class="btn btn-primary" ng-click="addTask()"><span class="glyphicon glyphicon-plus"></span> Add a new task</button>
+<div align="center">
+ <button class="btn btn-default" ng-show="start-count >= 1" ng-click="start = start - count"><span class="glyphicon glyphicon-chevron-left"></span> Previous
+</button>
+  Tasks {{start}} to {{start+$FilteredTasks.length-1}} of {{total}}
+<button class="btn btn-default" ng-show="start+count-1 < total" ng-click="start = start + count"><span class="glyphicon glyphicon-chevron-right"></span> Next
+</button>
+</div>

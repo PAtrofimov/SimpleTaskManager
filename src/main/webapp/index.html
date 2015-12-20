@@ -1,0 +1,121 @@
+<html ng-app="app">
+    <head>
+        <title>TODO list</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" media="screen" href="app-content/app.css" />
+        
+		<!-- <script src="//code.jquery.com/jquery-2.1.4.min.js"></script> -->
+		<script type="text/javascript" src="libs/angular.js"></script>
+        <script type="text/javascript" src="libs/angular-route.js"></script>
+        <script type="text/javascript" src="libs/angular-cookies.js"></script>
+        
+		<!-- <script src="//code.angularjs.org/1.2.20/angular.js"></script>
+        <script src="//code.angularjs.org/1.2.20/angular-route.js"></script>
+        <script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>  -->
+		
+		<script src="app.js"></script>
+        
+        <script type="text/javascript" src="app-services/authentication.service.js"></script>
+	    <script type="text/javascript" src="app-services/flash.service.js"></script>
+		<script type="text/javascript" src="app-services/user.service.js"></script>
+		<script type="text/javascript" src="app-services/task.service.js"></script>
+                <script type="text/javascript" src="app-services/pagination.service.js"></script>
+		
+		<script type="text/javascript" src="home/home.controller.js"></script>
+		<script type="text/javascript" src="home/home.directive.js"></script>
+        <script type="text/javascript" src="home/home.filter.js"></script>
+		<script type="text/javascript" src="login/login.controller.js"></script>
+		<script type="text/javascript" src="register/register.controller.js"></script>
+		
+		<script type="text/javascript" src="profile/profile.controller.js"></script>
+		<script type="text/javascript" src="admin/admin.controller.js"></script>
+		
+        <script type="text/ng-template" id="Task.html">
+            <tr>
+            <td>{{made}}</td><td><span class="done-{{done}}">"{{name}}"</span></td>
+            <td>{{start}}</td><td>{{finish}}</td> <td>{{priority}}</td><td>{{description}}</td>
+            <td>
+			<button class="btn btn-success" ng-click="$parent.setTaskId(id)"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+            <button class="btn btn-danger" ng-click="$parent.deleteTask(id, name)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+			</td>
+            </tr>
+        </script>
+        <script type="text/ng-template" id="TaskEdit.html">
+            <form class="form-horizontal" name="TaskForm" role="form">
+			
+			 <div class="col-xs-11">           
+            <div class="form-group">
+            <label for="task_done" class="col-xs-2 control-label">Done:</label>
+			<div class="col-xs-1">
+			<input id="task_done" class="form-control" type="checkbox" ng-model="tasksSvc.selectedDone" ng-change="changed=true"/>
+            </div> 
+			<label for="task_name" class="col-xs-1 control-label">Name:</label> 
+			<div class="col-xs-7">
+			<input id="task_name" class="form-control" ng-model="tasksSvc.selectedName" required autofocusng-minlength="3" ng-maxlength="25" ng-change="changed=true" />
+            </div> 
+			
+			</div> 
+						
+            <div class="form-group">
+            <label for="start" class="col-xs-2 control-label">Start:</label> 
+			<div class="col-xs-3">
+			<input id="start" class="form-control" type="date" min="1970-01-01" max="3999-01-01" step="1" ng-model="tasksSvc.selectedStart" required ng-change="changed=true" />
+            </div>
+			
+			<label for="finish" class="col-xs-1 control-label">Finish:</label> 
+			<div class="col-xs-3">
+			<input id="finish" class="form-control" type="date" min="1970-01-01" max="3999-01-01" step="1" ng-model="tasksSvc.selectedFinish" required ng-change="changed=true" />
+            </div>
+			
+			<label for="priority" class="col-xs-1 control-label">Priority:</label>
+			<div class="col-xs-1">
+			<input id="priority" class="form-control" type="number" min="1" max="5" step="1" size="1" ng-model="tasksSvc.selectedPrior" ng-change="changed=true" />
+           	
+			</div>
+			</div>
+								   
+		   <div class="form-group">
+			<label for="description" class="col-xs-2 control-label">Description:</label> 
+			<div class="col-xs-9">
+			<textarea rows="5" id="description" class="form-control" ng-model="tasksSvc.selectedDescr" ng-maxlength="255" ng-change="changed=true"> </textarea> 
+            </div>
+			
+			</div>
+			</div>
+            <div class="form-actions">
+			<div class="col-xs-offset-2 col-xs-9">    
+            <button class="btn btn-success" ng-click="save()" type="submit" 
+            ng-show="changed" ng-disabled="TaskForm.$invalid"><span class="glyphicon glyphicon-ok"></span> {{label}} 
+            </button>
+            <button class="btn btn-danger" ng-click="cancel()"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            </div>
+			</div>
+			
+			</form>
+        </script>
+    </head>
+    <body class="jumbotron">
+        <div >
+            <div class="container">
+			   <div class="row col-xs-12">
+			   
+				
+                    <div class="text-center" style="padding-bottom:0px;">
+                        <div class="well well-sm">
+                              <h2>Task manager</h2>      
+                        </div>
+                    </div>
+					
+					
+				
+				
+					<div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+                    <div ng-view></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
