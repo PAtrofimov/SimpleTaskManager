@@ -9,7 +9,6 @@ package handlers;
 import beans.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import controllers.UserController;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

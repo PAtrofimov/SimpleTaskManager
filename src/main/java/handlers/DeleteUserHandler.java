@@ -5,7 +5,6 @@
  */
 package handlers;
 
-import controllers.TaskController;
 import controllers.UserController;
 import io.netty.channel.ChannelHandlerContext;
 import server.HttpServerHandler;
