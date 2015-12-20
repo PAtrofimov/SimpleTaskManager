@@ -1,110 +1,102 @@
 ﻿<h2>Hi {{user.firstname}}!
-You're logged in as admin!!
-<a href="#/profile" class="btn btn-primary">Profile</a>
-<a href="#/login" class="btn btn-primary">Logout</a></h2>
+    You're logged in as admin!!
+    <a href="#/profile" class="btn btn-primary">Profile</a>
+    <a href="#/login" class="btn btn-primary">Logout</a></h2>
 
 <h3>All registered users:</h3> 
 
-<!--<select ng-model="limitUser" ng-options="limitUser for limitUser in [] | range: totalUsers" 
-         ng-init="limitUser=5" > </select>   
- <ul>
-    <li ng-repeat="user in allUsers">
-        {{user.login}} ({{user.firstname}} {{user.lastname}})
-        - <a href="#" ng-click="deleteUser(user.id)">Delete user</a>
-    </li>
-</ul> -->
 <table class="table table-bordered table-striped">
-    
+
     <thead>
-      <tr>
-        <td>
-          Login 
-        </td>
-        <td>
-          Password 
-        </td>
-        <td>
-		  First Name 
-        </td>
-		 <td>
-          Last Name 
-        </td>
-        <td>
-		  Action 
-        </td>
-			
-      </tr>
+        <tr>
+            <td>
+                Login 
+            </td>
+            <td>
+                Password 
+            </td>
+            <td>
+                First Name 
+            </td>
+            <td>
+                Last Name 
+            </td>
+            <td>
+                Action 
+            </td>
+
+        </tr>
     </thead>
-    
+
     <tbody>
-      <tr ng-repeat="user in allUsers | startFrom: paginationUser.page * paginationUser.perPage | limitTo: paginationUser.perPage">
-        <td>{{user.login}}</td>
-        <td>{{user.password}}</td>
-        <td>{{user.firstname}}</td>
-		<td>{{user.lastname}}</td>
-        <td><a href="#" ng-click="deleteUser(user.id)">Delete user</a></td>
-      </tr>
+        <tr ng-repeat="user in allUsers| startFrom: paginationUser.page * paginationUser.perPage | limitTo: paginationUser.perPage">
+            <td>{{user.login}}</td>
+            <td>{{user.password}}</td>
+            <td>{{user.firstname}}</td>
+            <td>{{user.lastname}}</td>
+            <td><a href="#" ng-click="deleteUser(user.id)">Delete user</a></td>
+        </tr>
     </tbody>
-    
-  </table>
+
+</table>
 
 <ul class="pagination">
-   
-<li><a href="" ng-click="paginationUser.prevPage()">&laquo;</a></li>
-  <li ng-repeat="n in [] | range: paginationUser.numPages" ng-class="{active: n == paginationUser.page}">
-  <a href="" ng-click="paginationUser.toPageId(n)">{{n + 1}}</a>
-  </li>
-  <li><a href="" ng-click="paginationUser.nextPage()">&raquo;</a></li>
+
+    <li><a href="" ng-click="paginationUser.prevPage()">&laquo;</a></li>
+    <li ng-repeat="n in []| range: paginationUser.numPages" ng-class="{active: n == paginationUser.page}">
+        <a href="" ng-click="paginationUser.toPageId(n)">{{n + 1}}</a>
+    </li>
+    <li><a href="" ng-click="paginationUser.nextPage()">&raquo;</a></li>
 </ul>
 
 
 <h3>All registered tasks:</h3>
 
 <table class="table table-bordered table-striped">
-    
+
     <thead>
-      <tr>
-        <td>
-          Done 
-        </td>
-        <td>
-          Name 
-        </td>
-        <td>
-		  Author 
-        </td>
-		 <td>
-          Start Date 
-        </td>
-        <td>
-		  Finish Date 
-        </td>
-		<td>
-          Action 
-        </td>
-		
-      </tr>
+        <tr>
+            <td>
+                Done 
+            </td>
+            <td>
+                Name 
+            </td>
+            <td>
+                Author 
+            </td>
+            <td>
+                Start Date 
+            </td>
+            <td>
+                Finish Date 
+            </td>
+            <td>
+                Action 
+            </td>
+
+        </tr>
     </thead>
-    
+
     <tbody>
-      <tr ng-repeat="task in allTasks | startFrom: paginationTask.page * paginationTask.perPage | limitTo: paginationTask.perPage">
-        <td>{{task.done | checkmark}}</td>
-        <td>{{task.name}}</td>
-        <td>{{task.author}}</td>
-		<td>{{task.start}}</td>
-        <td>{{task.finish}}</td>
-		<td><a href="#" ng-click="deleteTask(task.id)">Delete task</a></td>
-      </tr>
+        <tr ng-repeat="task in allTasks| startFrom: paginationTask.page * paginationTask.perPage | limitTo: paginationTask.perPage">
+            <td>{{task.done| checkmark}}</td>
+            <td>{{task.name}}</td>
+            <td>{{task.author}}</td>
+            <td>{{task.start}}</td>
+            <td>{{task.finish}}</td>
+            <td><a href="#" ng-click="deleteTask(task.id)">Delete task</a></td>
+        </tr>
     </tbody>
-    
-  </table>
+
+</table>
 
 <ul class="pagination">
-<li><a href="" ng-click="paginationTask.prevPage()">&laquo;</a></li>
-  <li ng-repeat="m in [] | range: paginationTask.numPages" ng-class="{active: m == paginationTask.page}">
-  <a href="" ng-click="paginationTask.toPageId(m)">{{m + 1}}</a>
-  </li>
-  <li><a href="" ng-click="paginationTask.nextPage()">&raquo;</a></li>
+    <li><a href="" ng-click="paginationTask.prevPage()">&laquo;</a></li>
+    <li ng-repeat="m in []| range: paginationTask.numPages" ng-class="{active: m == paginationTask.page}">
+        <a href="" ng-click="paginationTask.toPageId(m)">{{m + 1}}</a>
+    </li>
+    <li><a href="" ng-click="paginationTask.nextPage()">&raquo;</a></li>
 </ul>
 
 
