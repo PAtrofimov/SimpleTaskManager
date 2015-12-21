@@ -107,21 +107,10 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
     
 
     private boolean executeRequest(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
-        Map<String, HandlerInterface> handlers = new HashMap<String, HandlerInterface>();
-        handlers.put("managertask.handlers.UpdateTaskHandler", new UpdateTaskHandler());
-        handlers.put("managertask.handlers.InsertTaskHandler", new InsertTaskHandler());
-        handlers.put("managertask.handlers.SelectTasksHandler", new SelectTasksHandler());
-        handlers.put("managertask.handlers.DeleteTaskHandler", new DeleteTaskHandler());
-        handlers.put("managertask.handlers.LoginHandler", new LoginHandler());
-        handlers.put("managertask.handlers.InsertUserHandler", new InsertUserHandler());
-        handlers.put("managertask.handlers.UpdateUserHandler", new UpdateUserHandler());
-        handlers.put("managertask.handlers.SelectUserHandler", new SelectUserHandler());
-        handlers.put("managertask.handlers.DeleteUserHandler", new DeleteUserHandler());
-        handlers.put("managertask.handlers.SelectAllUsersHandler", new SelectAllUsersHandler());
+        Map<String, HandlerInterface> handlers = HttpServer.getMapServerHandlers();
         QueryStringDecoder qsd = new QueryStringDecoder(request.getUri());
-        System.out.println("===" + qsd.parameters() + "===");
-        System.out.println("===" + request.getUri() + "===");
-
+        System.out.println("===" + qsd.parameters() + "==="+ request.getUri() + "===");
+        
         if (qsd.parameters().containsKey("event")) {
             String eventstr = qsd.parameters().get("event").get(0);
             if (handlers.containsKey(eventstr)) {
