@@ -36,13 +36,11 @@ public class InsertTaskHandler implements HandlerInterface {
 
         ByteBuf content = request.content();
         if (content.isReadable()) {
-            System.out.println("dsd" + content.toString(CharsetUtil.UTF_8));
+            System.out.println("content " + content.toString(CharsetUtil.UTF_8));
 
             JsonDeserializer<Task> deser = new JsonDeserializerImpl();
 
-            Gson gson = new GsonBuilder()
-                    //        .registerTypeAdapter(Date.class, deser2).create();
-                    .registerTypeAdapter(Task.class, deser).create();
+            Gson gson = new GsonBuilder().registerTypeAdapter(Task.class, deser).create();
 
             Task newtask = gson.fromJson(content.toString(CharsetUtil.UTF_8), Task.class);
             newtask.setUserId(handler.getUser().getId());
@@ -58,11 +56,6 @@ public class InsertTaskHandler implements HandlerInterface {
             }
 
         }
-
-        //   QueryStringDecoder qsd = new QueryStringDecoder(request.getUri());
-        //        String name = qsd.parameters().get("name").get(0);
-//        boolean done = "true".equals(qsd.parameters().get("done").get(0));
-        //new TasksController().createTask(name, done, handler.getUser().getId());
         handler.sendOK(context);
     }
 

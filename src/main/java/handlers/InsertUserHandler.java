@@ -25,7 +25,7 @@ public class InsertUserHandler implements HandlerInterface {
         
         ByteBuf content = request.content();
         if (content.isReadable()) {
-            System.out.println("dsd" + content.toString(CharsetUtil.UTF_8));
+            System.out.println("content " + content.toString(CharsetUtil.UTF_8));
 
             User newuser = new Gson().fromJson(content.toString(CharsetUtil.UTF_8), User.class);
             System.out.println(newuser.toString());

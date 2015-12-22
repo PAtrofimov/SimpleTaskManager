@@ -25,8 +25,7 @@ public class DeleteTaskHandler implements HandlerInterface {
         QueryStringDecoder qsd = new QueryStringDecoder(request.getUri());
         TaskController tasksController = new TaskController();
         String id = qsd.parameters().get("id").get(0);
-        Integer uid = Integer.parseInt(id);
-        tasksController.deleteTask(uid);
+        tasksController.deleteTask(Integer.parseInt(id));
         handler.sendOK(context);
     }
 

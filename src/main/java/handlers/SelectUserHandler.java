@@ -30,7 +30,7 @@ public class SelectUserHandler implements HandlerInterface {
         
         ByteBuf content = request.content();
         if (content.isReadable()) {
-            System.out.println("dsd" + content.toString(CharsetUtil.UTF_8));
+            System.out.println("content " + content.toString(CharsetUtil.UTF_8));
 
             
             User user = new UserController().getUserByLogin(content.toString(CharsetUtil.UTF_8));

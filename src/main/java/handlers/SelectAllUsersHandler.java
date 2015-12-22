@@ -5,11 +5,9 @@
  */
 package handlers;
 
-import beans.Task;
 import beans.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import controllers.TaskController;
 import controllers.UserController;
 import io.netty.channel.ChannelHandlerContext;
 import server.HttpServerHandler;

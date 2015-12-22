@@ -34,13 +34,11 @@ public class UpdateTaskHandler implements HandlerInterface {
 
         ByteBuf content = request.content();
         if (content.isReadable()) {
-            System.out.println("dsd" + content.toString(CharsetUtil.UTF_8));
+            System.out.println("content " + content.toString(CharsetUtil.UTF_8));
 
             JsonDeserializer<Task> deser = new JsonDeserializerImpl();
 
-            Gson gson = new GsonBuilder()
-                    //        .registerTypeAdapter(Date.class, deser2).create();
-                    .registerTypeAdapter(Task.class, deser).create();
+            Gson gson = new GsonBuilder().registerTypeAdapter(Task.class, deser).create();
 
             Task upTask = gson.fromJson(content.toString(CharsetUtil.UTF_8), Task.class);
 
@@ -56,12 +54,6 @@ public class UpdateTaskHandler implements HandlerInterface {
                 Logger.getLogger(SelectTasksHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-//        QueryStringDecoder qsd = new QueryStringDecoder(request.getUri());
-//        TasksController tasksController = new TasksController();
-//        Integer userId = Integer.parseInt(qsd.parameters().get("id").get(0));
-//        String name = qsd.parameters().get("name").get(0);
-//        boolean done = "true".equals(qsd.parameters().get("done").get(0));
-        //  tasksController.updateTask(userId, name, done);
         handler.sendOK(context);
     }
 

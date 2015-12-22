@@ -26,7 +26,7 @@ public class UpdateUserHandler implements HandlerInterface {
         
         ByteBuf content = request.content();
         if (content.isReadable()) {
-            System.out.println("dsd" + content.toString(CharsetUtil.UTF_8));
+            System.out.println("content " + content.toString(CharsetUtil.UTF_8));
 
             User user = new Gson().fromJson(content.toString(CharsetUtil.UTF_8), User.class);
             System.out.println(user.toString());

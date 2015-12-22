@@ -23,15 +23,10 @@ public class LoginHandler implements HandlerInterface {
 
     public void handlerRequest(ChannelHandlerContext context, FullHttpRequest request, HttpServerHandler handler) {
         
-        
-//        QueryStringDecoder qsd = new QueryStringDecoder(request.getUri());
        
-//        String login = qsd.parameters().get("login").get(0);
-//        String password = qsd.parameters().get("password").get(0);
-        
         ByteBuf content = request.content();
         if (content.isReadable()) {
-            System.out.println("dsd" + content.toString(CharsetUtil.UTF_8));
+            System.out.println("content " + content.toString(CharsetUtil.UTF_8));
             User CurUser = new Gson().fromJson(content.toString(CharsetUtil.UTF_8), User.class);
             System.out.println(CurUser.toString());
             User user = new UserController().getUserByLoginPassword(CurUser.getLogin(), CurUser.getPassword());

@@ -25,8 +25,7 @@ public class DeleteUserHandler implements HandlerInterface {
         QueryStringDecoder qsd = new QueryStringDecoder(request.getUri());
         
         String id = qsd.parameters().get("id").get(0);
-        Integer uid = Integer.parseInt(id);
-        new UserController().deleteUser(uid);
+        new UserController().deleteUser(Integer.parseInt(id));
         handler.sendOK(context);
     }
 
