@@ -40,7 +40,7 @@ angular
         };
 		
 		service.GetAll = function GetAll() {
-            return $http.get(BASE_URL + "/?event=managertask.handlers.SelectAllUsersHandler").then(handleSuccess, handleError('Error getting all users'));
+            return $http.get(BASE_URL + "/?event=managertask.handlers.SelectUsersHandler").then(handleSuccess, handleError('Error getting all users'));
         }
        
 		

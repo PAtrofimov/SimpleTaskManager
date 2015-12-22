@@ -1,17 +1,7 @@
 package server;
 
 import beans.User;
-import handlers.DeleteTaskHandler;
-import handlers.DeleteUserHandler;
 import handlers.HandlerInterface;
-import handlers.InsertTaskHandler;
-import handlers.InsertUserHandler;
-import handlers.LoginHandler;
-import handlers.SelectAllUsersHandler;
-import handlers.SelectTasksHandler;
-import handlers.SelectUserHandler;
-import handlers.UpdateTaskHandler;
-import handlers.UpdateUserHandler;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
@@ -52,7 +42,6 @@ import static io.netty.handler.codec.http.HttpHeaders.Names.*;
 import static io.netty.handler.codec.http.HttpResponseStatus.*;
 import static io.netty.handler.codec.http.HttpVersion.*;
 import io.netty.handler.codec.http.QueryStringDecoder;
-import java.util.HashMap;
 import java.util.Map;
 
 public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
@@ -60,7 +49,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
     public static final String HTTP_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss zzz";
     public static final String HTTP_DATE_GMT_TIMEZONE = "GMT";
     public static final int HTTP_CACHE_SECONDS = 60;
-    public static final String catalog_path = "src\\main\\webapp";
+    public static final String CATALOG_PATH = "src\\main\\webapp";
     private User user;
     
 
@@ -82,22 +71,22 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
     }
 
-    public void sendUserResponseBad(ChannelHandlerContext ctx, String mes) {
-        //not found user
-        String jsontext = "{\"success\":\"false\", \"message\":\"" + mes + "\"}";
-        sendJSonResponse(ctx, jsontext, FORBIDDEN);
-    }
-
-    public void sendUserResponseOk(ChannelHandlerContext ctx) {
-        String jsontext = "{\"success\":\"true\"}";
-        sendJSonResponse(ctx, jsontext, OK);
-    }
+//    public void sendUserResponseBad(ChannelHandlerContext ctx, String mes) {
+//        //not found user
+//        String jsontext = "{\"success\":\"false\", \"message\":\"" + mes + "\"}";
+//        sendJSonResponse(ctx, jsontext, FORBIDDEN);
+//    }
+//
+//    public void sendUserResponseOk(ChannelHandlerContext ctx) {
+//        String jsontext = "{\"success\":\"true\"}";
+//        sendJSonResponse(ctx, jsontext, OK);
+//    }
     
-    public void sendUserIsAdminResponseOk(ChannelHandlerContext ctx, boolean isAdmin) {
-        
-        String jsontext = "{\"success\":\"true\", \"admin\":\"" + String.valueOf(isAdmin) + "\"}";
-        sendJSonResponse(ctx, jsontext, OK);
-    }
+//    public void sendUserIsAdminResponseOk(ChannelHandlerContext ctx, boolean isAdmin) {
+//        
+//        String jsontext = "{\"success\":\"true\", \"admin\":\"" + String.valueOf(isAdmin) + "\"}";
+//        sendJSonResponse(ctx, jsontext, OK);
+//    }
 
     public void sendOK(ChannelHandlerContext ctx) {
         FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, OK);
@@ -274,7 +263,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
         }
 
         // Convert to absolute path.
-        return SystemPropertyUtil.get("user.dir") + File.separator +catalog_path + uri;
+        return SystemPropertyUtil.get("user.dir") + File.separator +CATALOG_PATH + uri;
     }
 
     private static final Pattern ALLOWED_FILE_NAME = Pattern.compile("[A-Za-z0-9][-_A-Za-z0-9\\.]*");

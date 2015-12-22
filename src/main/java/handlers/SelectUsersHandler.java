@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author Anton
  */
-public class SelectAllUsersHandler implements HandlerInterface {
+public class SelectUsersHandler implements HandlerInterface {
 
     public void handlerRequest(ChannelHandlerContext context, FullHttpRequest request, HttpServerHandler handler) {
         boolean authOK = new AuthenticationHandler().authenticate(context, request, handler);

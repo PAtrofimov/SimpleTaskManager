@@ -6,7 +6,7 @@ import handlers.HandlerInterface;
 import handlers.InsertTaskHandler;
 import handlers.InsertUserHandler;
 import handlers.LoginHandler;
-import handlers.SelectAllUsersHandler;
+import handlers.SelectUsersHandler;
 import handlers.SelectTasksHandler;
 import handlers.SelectUserHandler;
 import handlers.UpdateTaskHandler;
@@ -50,7 +50,7 @@ public final class HttpServer {
         handlers.put("managertask.handlers.UpdateUserHandler", new UpdateUserHandler());
         handlers.put("managertask.handlers.SelectUserHandler", new SelectUserHandler());
         handlers.put("managertask.handlers.DeleteUserHandler", new DeleteUserHandler());
-        handlers.put("managertask.handlers.SelectAllUsersHandler", new SelectAllUsersHandler());
+        handlers.put("managertask.handlers.SelectUsersHandler", new SelectUsersHandler());
         return handlers;
     }
            

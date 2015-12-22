@@ -7,12 +7,14 @@ package handlers;
 
 
 import beans.User;
+import beans.UserValidation;
 import com.google.gson.Gson;
 import controllers.UserController;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import server.HttpServerHandler;
 import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.util.CharsetUtil;
 
 
@@ -30,12 +32,14 @@ public class UpdateUserHandler implements HandlerInterface {
 
             User user = new Gson().fromJson(content.toString(CharsetUtil.UTF_8), User.class);
             System.out.println(user.toString());
-            String mes = new UserController().updateUser(user);
+            UserValidation message = new UserController().updateUser(user);
 
-            if ("".equals(mes)) {
-               handler.sendUserResponseOk(context);
+            if (message.isSuccess()) {
+             //   handler.sendUserResponseOk(context);
+             handler.sendJSonResponse(context, message.toString(), HttpResponseStatus.OK);
             } else {
-                handler.sendUserResponseBad(context, mes );
+              //  handler.sendUserResponseBad(context, mes );
+              handler.sendJSonResponse(context, message.toString(), HttpResponseStatus.FORBIDDEN);
             }
 
         }

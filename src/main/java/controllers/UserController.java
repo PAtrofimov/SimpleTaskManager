@@ -5,6 +5,7 @@
  */
 package controllers;
 import beans.User;
+import beans.UserValidation;
 import database.DataBase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -66,15 +67,18 @@ public class UserController {
         return user;
     }
         
- public String createUser(User user) {
+ public UserValidation createUser(User user) {
 
       return createUser(user.getFirstname(), user.getLastname(), user.getLogin(),user.getPassword());
     
  }
 
-    public String createUser(String fname, String lname, String login,String password) {
+    public UserValidation createUser(String fname, String lname, String login,String password) {
         Connection con = null;
         PreparedStatement pstm = null;
+        
+        UserValidation message = new UserValidation();
+         message.setSuccess(false);
         
         ResultSet rs = null;
         try {
@@ -85,8 +89,11 @@ public class UserController {
              pstm.setString(1, login);
             rs = pstm.executeQuery();
             
-            if (rs.next()) return "user exists";
-            
+            if (rs.next()) 
+            {  
+                message.setMessage("user exists");
+                return message;
+            }
             query = "insert into User (first_name, last_name, login, password) values(?,?,?,?);";
             pstm = con.prepareStatement(query);
 
@@ -96,7 +103,7 @@ public class UserController {
             pstm.setString(4, password);
                         
             pstm.executeUpdate();
-
+            message.setSuccess(true);
 
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -117,20 +124,22 @@ public class UserController {
             }
         }
 
-        return "";
+        return message;
     }
        
    
-  public String updateUser(User user) {
+  public UserValidation updateUser(User user) {
 
       return updateUser(user.getId(),user.getFirstname(), user.getLastname(), user.getLogin(),user.getPassword());
     
  }
 
-    public String updateUser(int id,String fname, String lname, String login,String password) {
+    public UserValidation updateUser(int id,String fname, String lname, String login,String password) {
         Connection con = null;
         PreparedStatement pstm = null;
-        
+        UserValidation message = new UserValidation();
+         message.setSuccess(false);
+         
         ResultSet rs = null;
         try {
             con = DataBase.getInstance().getConnection();
@@ -140,7 +149,12 @@ public class UserController {
              pstm.setInt(1, id);
             rs = pstm.executeQuery();
             
-            if (!rs.next()) return "user not exists";
+            if (!rs.next()) 
+                    {
+                        message.setMessage("user not exists");
+                        return message;
+                      //  return  "user not exists";
+                    }
             
             
              query = "update User set first_name=?, last_name=?,login=?, password=? where Id=?;";
@@ -153,7 +167,7 @@ public class UserController {
             pstm.setString(4, password);
             pstm.setInt(5, id);
             pstm.executeUpdate();
-
+            message.setSuccess(true);
 
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -174,7 +188,7 @@ public class UserController {
             }
         }
 
-        return "";
+        return message;
     }
        
           
